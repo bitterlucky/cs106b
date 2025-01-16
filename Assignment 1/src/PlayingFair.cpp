@@ -1,6 +1,6 @@
 /* File: PlayingFair.cpp
  *
- * TODO: Edit these comments to describe anything interesting or noteworthy in your implementation.
+ * 解决公平比赛的问题
  */
 #include "PlayingFair.h"
 #include "GUI/SimpleTest.h"
@@ -8,15 +8,26 @@
 using namespace std;
 
 string aSequenceOfOrder(int n) {
-    /* TODO: Delete this line and the next two lines, then implement this function. */
-    (void) n;
-    return "";
+    if (n < 0) {
+        error("n must greater or equal than 0");
+    }
+    if (n == 0) {
+        return "A";
+    } else {
+        return aSequenceOfOrder(n - 1) + bSequenceOfOrder(n - 1);
+    }
+
 }
 
 string bSequenceOfOrder(int n) {
-    /* TODO: Delete this line and the next two lines, then implement this function. */
-    (void) n;
-    return "";
+    if (n < 0) {
+        error("n must greater or equal than 0");
+    }
+    if (n == 0) {
+        return "B";
+    } else {
+        return bSequenceOfOrder(n - 1) + aSequenceOfOrder(n - 1);
+    }
 }
 
 
@@ -60,6 +71,9 @@ PROVIDED_TEST("Triggers error on negative inputs.") {
      */
     EXPECT_ERROR(aSequenceOfOrder(-137));
     EXPECT_ERROR(bSequenceOfOrder(-137));
+}
+STUDENT_TEST("just finish the task") {
+    EXPECT_EQUAL(aSequenceOfOrder(0), "A");
 }
 
 /* TODO: You will need to add your own tests into this suite of test cases. Think about the sorts

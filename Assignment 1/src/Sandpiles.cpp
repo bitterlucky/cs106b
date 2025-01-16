@@ -1,16 +1,21 @@
 /* File: Sandpiles.cpp
  *
- * TODO: Edit these comments to describe anything interesting or noteworthy in your implementation.
+ * Sandpiles problem
  */
 #include "Sandpiles.h"
 #include "GUI/SimpleTest.h"
 using namespace std;
 
 void dropSandOn(Grid<int>& world, int row, int col) {
-    /* TODO: Delete this line and the three after it, then implement this function. */
-    (void) world;
-    (void) row;
-    (void) col;
+    if (world[row][col] < 3) {
+        world[row][col] += 1;
+    } else {
+        world[row][col] = 0;
+        dropSandOn(world, row - 1, col);
+        dropSandOn(world, row, col - 1);
+        dropSandOn(world, row, col + 1);
+        dropSandOn(world, row + 1, col);
+    }
 }
 
 
@@ -85,8 +90,21 @@ PROVIDED_TEST("Two topples chain.") {
  *
  * Happy testing!
  */
+STUDENT_TEST("just finish this homework.") {
+    Grid<int> before = {
+        { 0, 0, 0, 0 },
+        { 0, 0, 0, 0 },
+        { 0, 0, 0, 0 }
+    };
+    Grid<int> after = {
+        { 0, 0, 0, 0 },
+        { 0, 1, 0, 0 },
+        { 0, 0, 0, 0 }
+    };
 
-
+    dropSandOn(before, 1, 1);
+    EXPECT_EQUAL(before, after); // The above call changes 'before.'
+}
 
 
 
